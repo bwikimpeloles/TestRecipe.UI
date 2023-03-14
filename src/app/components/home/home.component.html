@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-xs-6">
         <div class="recipes-display">
-          <app-recipe-card class="recipe-card" *ngFor="let recipe of recipes"
+          <app-recipe-card class="recipe-card" *ngFor="let recipe of recipes | filter:searchText"
             [recipe]="recipe"></app-recipe-card>
           
   

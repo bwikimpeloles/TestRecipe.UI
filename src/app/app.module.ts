@@ -18,6 +18,7 @@ import { FavouritebuttonComponent } from './components/favouritebutton/favourite
 import { CommonModule } from '@angular/common';
 import { AccountlistComponent } from './components/accountlist/accountlist.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -43,6 +44,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    Ng2SearchPipeModule
 
   ],
   providers: [RecipeCardComponent, {

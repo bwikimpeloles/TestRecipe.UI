@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-xs-6">
         <div class="recipes-display">
-          <app-recipe-card-user class="recipe-card" *ngFor="let recipe of recipes"
+          <app-recipe-card-user class="recipe-card" *ngFor="let recipe of recipes | filter:searchText"
             [recipe]="recipe">
             <!-- <app-favouritebutton *ngFor="let favourite of favourites; let i=index"
             [favourite]="favourite"></app-favouritebutton> -->
