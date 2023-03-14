@@ -1,0 +1,20 @@
+<!-- <button (click)="updateRecipe(recipe); testRecipeService.showDialog=false; testRecipeService.showCreate=false; testRecipeService.hideDialog=true" *ngIf="recipe.id">Save</button>
+
+<button (click)="createRecipe(recipe)" *ngIf="!recipe.id">Create</button> -->
+
+<!-- <button class="btn-view">Add to Favourites</button> -->
+
+<div *ngIf="favourite.productId==recipe.id;">
+     <!-- <div *ngIf="name; then func(); else false">; -->
+    <button class="btn-view" *ngIf="favourite.favouriteBool==false">Add to Favourites</button>
+    <button class="btn-view-remove" *ngIf="favourite.favouriteBool==true">Remove from Favourites</button>
+</div>
+
+
+
+
+
+<!-- <button class="btn-view" *ng-show="favourite.productid==recipe.id && favourite.favouritebool==true">Remove from Favourites</button> -->
+
+<!-- <button class="btn-view" *ngIf="recipe.id">Add to Favourites</button>
+<button class="btn-view-remove" >Remove from Favourites</button> -->

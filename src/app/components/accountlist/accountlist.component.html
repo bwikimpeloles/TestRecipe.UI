@@ -1,0 +1,7 @@
+<button (click)="SignOut()" type="button">Logout</button>
+
+
+<h1>Accounts List</h1>
+<ul *ngFor="let account of accounts">
+    <li>{{account.username}}</li>
+</ul>

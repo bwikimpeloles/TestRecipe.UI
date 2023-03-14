@@ -1,0 +1,41 @@
+
+
+<div *ngIf="recipe">
+    <div id="container">
+        <div id="header">
+            <h2>{{ recipe.name }}</h2>
+        </div>
+    
+        <div id="content">
+            <div>
+                Name:
+                <input [(ngModel)]="recipe.name" placeholder="Name" />
+            </div>
+            <div>
+                Ingredient:
+                <textarea [(ngModel)]="recipe.ingredient" placeholder="Ingredient" rows="15" cols="40"></textarea>
+            </div>
+            <div>
+                Instruction:
+                <textarea [(ngModel)]="recipe.instruction" placeholder="Instruction" rows="15" cols="40"></textarea>
+            </div>
+            <div>
+                Favourite:
+                <input [(ngModel)]="recipe.favourite" placeholder="Favourite" />
+            </div>
+        </div>
+    
+        <div id="actions">
+            <button class="cancel" (click)="testRecipeService.showDialog=false; testRecipeService.showCreate=false; testRecipeService.hideDialog=true; closeCreateRecipe(recipe)" *ngIf="!recipe.id">Cancel</button>
+            <button class="cancel" (click)="testRecipeService.showDialog=false; testRecipeService.showCreate=false; testRecipeService.showCreateButton=true; testRecipeService.hideDialog=true; cancelEditRecipe(recipe); closeCreateRecipe(recipe)"*ngIf="recipe.id">Cancel</button>
+            <button (click)="updateRecipe(recipe); testRecipeService.showDialog=false; testRecipeService.showCreate=false; testRecipeService.hideDialog=true" *ngIf="recipe.id">Save</button>
+
+            <button (click)="createFavourite(createRecipe(recipe))" *ngIf="!recipe.id">Create</button>
+        </div>
+
+        <div class="empty-footer"></div>
+    </div>
+    
+
+
+</div>

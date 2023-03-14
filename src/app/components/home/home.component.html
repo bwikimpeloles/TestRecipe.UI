@@ -1,0 +1,35 @@
+<div class="header">
+    <div class="search-display">
+      <div class="search-bar">
+        <a href="#default" class="logo">Recipe Management</a>
+        <input type="text" name="search" placeholder="Search" [(ngModel)]="searchText">
+        <div class="search-button">
+          <img src="assets/search_icon.svg" alt="search icon">
+        </div>
+        <button (click)="SignOut()" type="button">Logout</button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <button *ngIf="testRecipeService.showCreateButton" (click)="initNewRecipe(); testRecipeService.showDialog=false; testRecipeService.showCreate=true; testRecipeService.hideDialog=false;" class="btn-view">Create New Recipe</button>
+      <br>
+      <app-edit-recipe *ngIf="testRecipeService.showCreate" [recipe]="recipeToEdit" (recipesUpdated)="updateRecipeList($event)"></app-edit-recipe>
+    </div>
+  </div>
+
+
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="recipes-display">
+          <app-recipe-card class="recipe-card" *ngFor="let recipe of recipes"
+            [recipe]="recipe"></app-recipe-card>
+          
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

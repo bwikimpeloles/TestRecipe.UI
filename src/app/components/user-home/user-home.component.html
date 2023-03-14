@@ -1,0 +1,35 @@
+<div class="header">
+    <div class="search-display">
+      <div class="search-bar">
+        <a href="#default" class="logo">Recipe Management</a>
+        <input type="text" name="search" placeholder="Search" [(ngModel)]="searchText">
+        <div class="search-button">
+          <img src="assets/search_icon.svg" alt="search icon">
+        </div>
+        <button (click)='SignOut()'>log out </button>
+        <!-- <button (click)='okk()'>OKK </button> -->
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
+
+
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="recipes-display">
+          <app-recipe-card-user class="recipe-card" *ngFor="let recipe of recipes"
+            [recipe]="recipe">
+            <!-- <app-favouritebutton *ngFor="let favourite of favourites; let i=index"
+            [favourite]="favourite"></app-favouritebutton> -->
+          </app-recipe-card-user>
+          
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

@@ -1,0 +1,27 @@
+<app-edit-recipe  *ngIf="testRecipeService.showDialog"[recipe]="recipeToEdit"
+    (recipesUpdated)="updateRecipeList($event)"></app-edit-recipe>
+<div class="recipe-card" *ngIf="testRecipeService.hideDialog">
+    <div class="recipe-card-header">
+        <img src="assets/first_image.jpg" alt="food">
+    </div>
+    <div class="recipe-card-body-content">
+        <div class="recipe-card-body">
+            <p style="font-size:30px"> <b>{{ recipe.name }}</b></p>
+        </div>
+        <div class="recipe-card-body">
+
+            <p><b>Ingredients</b><br>{{ recipe.ingredient }}</p>
+        </div>
+        <div class="recipe-card-body">
+
+            <p><b>Instruction</b><br>{{ recipe.instruction }}</p>
+        </div>
+        <div class="recipe-card-body">
+            <p><b>Number of Favourites: </b>{{ recipe.favourite }}</p>
+        </div>
+    </div>
+    <div class="recipe-card-footer">
+        <button class="btn-view" (click)="editRecipe(recipe); testRecipeService.showDialog=true; testRecipeService.showCreate=false; testRecipeService.showCreateButton=false;  testRecipeService.hideDialog=false">Edit</button>
+        <button class="btn-view" (click)="deleteRecipe(recipe);" *ngIf="recipe.id">Delete</button>
+    </div>
+</div>

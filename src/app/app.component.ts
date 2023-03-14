@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TestRecipe } from './models/test-recipe';
+import { TestRecipeService } from './services/test-recipe.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TestRecipe.UI';
+  constructor(public testRecipeService: TestRecipeService) {}
 }
