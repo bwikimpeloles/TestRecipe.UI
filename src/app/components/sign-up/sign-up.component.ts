@@ -15,7 +15,9 @@ export class SignUpComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = "fa-eye-slash";
   loginForm!: FormGroup;
-  signUpForm!: FormGroup
+  signUpForm!: FormGroup;
+  public accounts: any=[];
+  public role: string="";
 
   constructor(private formBuilder: FormBuilder, public testRecipeService: TestRecipeService, private router: Router) {
   }
@@ -56,34 +58,24 @@ export class SignUpComponent implements OnInit {
 
   }
 
-  onLogin2() {
-    if (this.loginForm.valid) {
-      this.testRecipeService.Login(this.loginForm.value)
-      .subscribe({
-        next: (res) => {
-          alert(res.message)
-        }, 
-        error: (err) => {
-          alert(err?.error.message)
-        }
-      })
-      console.log(this.loginForm.value)
-      this.loginForm.reset()
-      this.router.navigate(['userhome'])
-    } else {
-      ValidateForm.validateAllFormFields(this.loginForm)
-    }
-  }
-
   onLogin(){
     if(this.loginForm.valid){
       //send object to db 
       console.log(this.loginForm.value);
       this.testRecipeService.Login(this.loginForm.value).subscribe({
         next:(res) => {
+          this.testRecipeService.getRoleFromStore().subscribe(val =>{
+            let roleFromToken = this.testRecipeService.getRoleFromToken();
+            this.role = val || roleFromToken
+          });
           alert(res.message);
           this.testRecipeService.storeToken(res.token);
-          this.router.navigate(['userhome'])
+          if (this.role=="Admin"){
+            this.router.navigate(['home'])
+          } else {
+            this.router.navigate(['userhome'])
+          } 
+          
         },
         error:(err)=>{
           alert(err?.error.message);
@@ -106,7 +98,8 @@ export class SignUpComponent implements OnInit {
         next:(res=> {
           alert(res.message);
           this.signUpForm.reset();
-          this.router.navigate(['userhome']); 
+          window.location.reload();
+          this.router.navigate(['login']); 
         }),
         error: (err=>
           alert(err?.error.message) ) 
@@ -117,25 +110,6 @@ export class SignUpComponent implements OnInit {
     else{
       ValidateForm.validateAllFormFields(this.signUpForm);
       alert("Your form is invalid");
-    }
-  }
-
-  onSignUp2() {
-    if (this.signUpForm.valid) {
-      this.testRecipeService.SignUp(this.signUpForm.value)
-      .subscribe({
-        next: (res) => {
-          alert(res.message)
-        }, 
-        error: (err) => {
-          alert(err?.error.message)
-        }
-      })
-      console.log(this.signUpForm.value)
-      this.signUpForm.reset()
-      this.router.navigate(['userhome'])
-    } else {
-      ValidateForm.validateAllFormFields(this.signUpForm)
     }
   }
 

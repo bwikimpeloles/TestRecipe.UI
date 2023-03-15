@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { Favourite } from 'src/app/models/favourite';
 import { TestRecipe } from 'src/app/models/test-recipe';
 import { TestRecipeService } from 'src/app/services/test-recipe.service';
@@ -15,6 +16,8 @@ export class UserHomeComponent {
   favourites: Favourite[] = [];
   recipeToEdit?: TestRecipe;
   searchText: string ="";
+  public accounts: any=[];
+  public username: string="";
 
   constructor(public testRecipeService: TestRecipeService, private router: Router) {}
 
@@ -23,6 +26,15 @@ export class UserHomeComponent {
     .subscribe((result: TestRecipe[])  => (this.recipes = result));
     this.testRecipeService.GetFavourite()
     .subscribe((result: Favourite[])  => (this.favourites = result));
+  
+
+    this.testRecipeService.getUsernameFromStore().subscribe(val =>{
+      let usernameFromToken = this.testRecipeService.getUsernameFromToken();
+      this.username = val || usernameFromToken
+    })
+    interval(60000).subscribe(() => {
+      this.refresh();
+  });
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
@@ -41,4 +53,10 @@ export class UserHomeComponent {
   okk() {
     console.log(this.testRecipeService.getToken());
   }
+
+  refresh(){
+    window.location.reload();
+  }
+
+  
 }

@@ -10,6 +10,7 @@ import { Favourite } from '../models/favourite';
 import { TestRecipe } from '../models/test-recipe';
 import { User } from '../models/user';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,10 +24,13 @@ export class TestRecipeService {
   helper: JwtHelperService;
   private username$ = new BehaviorSubject<string>("");
   private role$ = new BehaviorSubject<string>("");
+
+  private userPayload:any;
   
 
   constructor(private http: HttpClient, private router: Router) { 
     this.helper = new JwtHelperService();
+    this.userPayload = this.decodedToken();
   }
 
   public getTestRecipes() : Observable<TestRecipe[]> {
@@ -113,9 +117,22 @@ export class TestRecipeService {
       this.username$.next(username);
     }
 
+    decodedToken() {
+      const jwtHelper = new JwtHelperService();
+      const token = this.getToken()!;
+      console.log(jwtHelper.decodeToken(token));
+      return jwtHelper.decodeToken(token);
+    }
 
+    getUsernameFromToken(){
+      if(this.userPayload)
+      return this.userPayload.unique_name;
+    }
 
-
+    getRoleFromToken(){
+      if(this.userPayload)
+      return this.userPayload.role;
+    }
 
 
   // signUp(user: User): Observable<User>{

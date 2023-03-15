@@ -48,16 +48,6 @@ export class EditRecipeComponent {
     return recipe;
   }
 
-  createFavourite(recipe : TestRecipe) {
-    this.favourite= {
-      productId: recipe.id!,
-      username: recipe.instruction!.toString(),
-      favouriteBool: false
-    }
-    this.testRecipeService.CreateFavourite(this.favourite).subscribe((favourites: Favourite[]) => this.favouritesUpdated.emit(favourites))
-    window.location.reload();
-  }
-
   cancelEditRecipe(recipe: TestRecipe) {
     this.recipeCardComponent.recipeToEdit = undefined;
   }

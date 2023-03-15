@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { TestRecipe } from 'src/app/models/test-recipe';
 import { TestRecipeService } from 'src/app/services/test-recipe.service';
 
@@ -14,6 +15,7 @@ export class HomeComponent {
   recipeToEdit?: TestRecipe;
   searchText: string ="";
   public accounts: any=[];
+  public username: string="";
 
   constructor(public testRecipeService: TestRecipeService, private router: Router) {}
 
@@ -23,6 +25,15 @@ export class HomeComponent {
 
     this.testRecipeService.getAccounts()
     .subscribe((result: any[])  => (this.accounts = result));
+
+    this.testRecipeService.getUsernameFromStore().subscribe(val =>{
+      let usernameFromToken = this.testRecipeService.getUsernameFromToken();
+      this.username = val || usernameFromToken
+    })
+
+    interval(60000).subscribe(() => {
+      this.refresh();
+  });
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
@@ -37,4 +48,10 @@ export class HomeComponent {
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }
+
+  refresh(){
+    window.location.reload();
+  }
+
+  
 }
