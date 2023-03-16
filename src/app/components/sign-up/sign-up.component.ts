@@ -60,19 +60,24 @@ export class SignUpComponent implements OnInit {
 
   onLogin(){
     if(this.loginForm.valid){
-      debugger
+      //debugger
       //send object to db 
       console.log(this.loginForm.value);
       this.testRecipeService.Login(this.loginForm.value).subscribe({
         next:(res) => {
+          
           this.testRecipeService.storeToken(res.token);//token must be store first inside local storage
+          console.log('this is token'+res.token)
+          
+          
           this.testRecipeService.getRoleFromStore().subscribe(val =>{
-            
-            let roleFromToken = this.testRecipeService.getRoleFromToken();
-            this.role = val || roleFromToken
 
-            alert(res.message);
+            let roleFromToken = this.testRecipeService.getRoleFromToken();
             debugger
+            this.role = val || roleFromToken
+            console.log('this is log');
+            alert(res.message);
+            //debugger
             //this.testRecipeService.storeToken(res.token); 
             //this was previous position, of this line, thats why roleFromToken was undefined before 
             if (this.role=="Admin"){
