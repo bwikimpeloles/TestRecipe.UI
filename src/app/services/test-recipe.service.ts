@@ -54,17 +54,17 @@ export class TestRecipeService {
   //favourite
 
   public GetFavourite() : Observable<Favourite[]> {
-    return this.http.get<Favourite[]>(`${environment.apiUrl2}/GetFavourite`);
+    return this.http.get<Favourite[]>(`${environment.apiUrl}/${this.url}/GetFavourite`);
     
   }
 
   public UpdateFavourite(recipe: Favourite) : Observable<Favourite[]> {
-    return this.http.put<Favourite[]>(`${environment.apiUrl2}/UpdateFavourite`, 
+    return this.http.put<Favourite[]>(`${environment.apiUrl}/${this.url}/UpdateFavourite`, 
     recipe);
   }
 
   public CreateFavourite(recipe: Favourite) : Observable<Favourite[]> {
-    return this.http.post<Favourite[]>(`${environment.apiUrl2}/CreateFavourite`, 
+    return this.http.post<Favourite[]>(`${environment.apiUrl}/${this.url}/CreateFavourite`, 
     recipe);
   }
 
@@ -81,8 +81,10 @@ export class TestRecipeService {
     }
 
     SignOut() {
+      
       localStorage.clear();
       this.router.navigateByUrl('/login');
+      
     }
 
     public storeToken(tokenValue: string) {
@@ -135,27 +137,5 @@ export class TestRecipeService {
     }
 
 
-  // signUp(user: User): Observable<User>{
-  //   return this.http.post<User>(this.apiUrl+'/login', user);
-  // }
-
-  // signIn(user: User): Observable<User>{
-  //   return this.http.post<User>(this.apiUrl+'/login', user);
-  // }
-
-  // sendRecoveryLink(user: User): Observable<User>{
-  //   return this.http.post<User>(this.apiUrl+'/send-recovery-link', user);
-  // }
-
-  // logout(){
-  //   //Remove the stored from local storage
-  //   localStorage.removeItem('token');
-  //   this.router.navigateByUrl('/login');
-  // }
-
-  // updatePassword(user: User, token: string){
-  //   let httpHeaders = new HttpHeaders({ 'Authorization': 'Bearer '+token });
-  //   return this.http.put<User>(this.apiUrl+'/reset-password', user, { headers: httpHeaders });
-  // }
 
 }

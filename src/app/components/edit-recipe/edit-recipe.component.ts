@@ -44,8 +44,7 @@ export class EditRecipeComponent {
       .createRecipe(recipe)
       .subscribe((recipes: TestRecipe[]) => this.recipesUpdated.emit(recipes));
 
-    
-    return recipe;
+      window.location.reload();
   }
 
   cancelEditRecipe(recipe: TestRecipe) {

@@ -9,8 +9,8 @@
             <form class="mt-5" [formGroup]="loginForm">
                 <div class="sign-in-htm">
                     <div class="group" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">
-                        <label for="pass" class="label">Username</label>
-                        <input id="pass" formControlName="username" type="text" class="input">
+                        <label for="user" class="label">Username</label>
+                        <input id="user" formControlName="username" type="text" class="input">
                         <small class="text-danger" *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">*Username is required</small>
                     </div>
                     <div class="group" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">

@@ -32,9 +32,15 @@ export class UserHomeComponent {
       let usernameFromToken = this.testRecipeService.getUsernameFromToken();
       this.username = val || usernameFromToken
     })
-    interval(60000).subscribe(() => {
-      this.refresh();
-  });
+    if(this.testRecipeService.showDialog == false &&
+      this.testRecipeService.hideDialog == true &&
+      this.testRecipeService.showCreate == false&&
+      this.testRecipeService.showCreateButton == true){
+        interval(30000).subscribe(() => { //refresh get test recipe every 30 seconds
+          this.testRecipeService.getTestRecipes()
+          .subscribe((result: TestRecipe[])  => (this.recipes = result));
+      });
+      }
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
@@ -48,6 +54,7 @@ export class UserHomeComponent {
   SignOut(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
+    
   }
 
   okk() {

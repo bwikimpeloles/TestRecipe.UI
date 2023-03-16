@@ -93,7 +93,9 @@ export class AccountlistComponent implements OnInit{
   }
 
   SignOut(){
+    
     localStorage.clear();
     this.router.navigateByUrl('/login');
+    
   }
 }

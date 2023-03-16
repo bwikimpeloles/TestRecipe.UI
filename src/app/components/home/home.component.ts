@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs';
+
 import { TestRecipe } from 'src/app/models/test-recipe';
 import { TestRecipeService } from 'src/app/services/test-recipe.service';
 
@@ -30,10 +30,7 @@ export class HomeComponent {
       let usernameFromToken = this.testRecipeService.getUsernameFromToken();
       this.username = val || usernameFromToken
     })
-
-    interval(60000).subscribe(() => {
-      this.refresh();
-  });
+    
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
@@ -47,6 +44,7 @@ export class HomeComponent {
   SignOut(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
+    window.location.reload();
   }
 
   refresh(){

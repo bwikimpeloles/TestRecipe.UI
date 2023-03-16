@@ -1,5 +1,6 @@
 import { FactoryTarget } from '@angular/compiler';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Account } from 'src/app/models/account';
 import { Favourite } from 'src/app/models/favourite';
 import { TestRecipe } from 'src/app/models/test-recipe';
 import { TestRecipeService } from 'src/app/services/test-recipe.service';
@@ -18,6 +19,7 @@ export class RecipeCardUserComponent {
 
   @Input() recipe!: TestRecipe;
   @Input() favourite!: Favourite;
+  @Input() account!: any;
   @Output() recipesUpdated = new EventEmitter<TestRecipe[]>();
   @Output() favouritesUpdated = new EventEmitter<Favourite[]>();
 
@@ -32,6 +34,10 @@ export class RecipeCardUserComponent {
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
+    this.recipes = recipes;
+  }
+
+  addtoFavourite(recipes: TestRecipe[]) {
     this.recipes = recipes;
   }
 
