@@ -65,8 +65,9 @@ export class SignUpComponent implements OnInit {
       console.log(this.loginForm.value);
       this.testRecipeService.Login(this.loginForm.value).subscribe({
         next:(res) => {
+          this.testRecipeService.storeToken(res.token);//token must be store first inside local storage
           this.testRecipeService.getRoleFromStore().subscribe(val =>{
-            this.testRecipeService.storeToken(res.token);//token must be store first inside local storage
+            
             let roleFromToken = this.testRecipeService.getRoleFromToken();
             this.role = val || roleFromToken
 
