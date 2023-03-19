@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 import { AccountlistComponent } from './components/accountlist/accountlist.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FavouriteCardComponent } from './components/favourite-card/favourite-card.component';
 
 
 
@@ -36,6 +37,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     RecipeCardUserComponent,
     FavouritebuttonComponent,
     AccountlistComponent,
+    FavouriteCardComponent,
   ],
   imports: [
     BrowserModule,

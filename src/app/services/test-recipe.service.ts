@@ -20,11 +20,13 @@ export class TestRecipeService {
   hideDialog = true;
   showCreate = false;
   showCreateButton = true;
+  favouritemenu= false;
+  usermenu=true;
   private apiUrl = environment.apiUrl;
   helper: JwtHelperService;
   private username$ = new BehaviorSubject<string>("");
   private role$ = new BehaviorSubject<string>("");
-
+  
   private userPayload:any;
   
 
@@ -53,20 +55,25 @@ export class TestRecipeService {
 
   //favourite
 
-  public GetFavourite() : Observable<Favourite[]> {
-    return this.http.get<Favourite[]>(`${environment.apiUrl}/${this.url}/GetFavourite`);
-    
+  public addFavourite(accountsId: number, testRecipeId: number) {
+    return this.http.post<any>(`${environment.apiUrl}/${this.url}/favourite`,{accountsId: accountsId,
+      testRecipeId: testRecipeId,});
   }
 
-  public UpdateFavourite(recipe: Favourite) : Observable<Favourite[]> {
-    return this.http.put<Favourite[]>(`${environment.apiUrl}/${this.url}/UpdateFavourite`, 
-    recipe);
+  public deleteFavourite(accountsId: number, testRecipeId: number) {
+    return this.http.delete<any>(`${environment.apiUrl}/${this.url}/favourite/${accountsId}/${testRecipeId}`);
   }
 
-  public CreateFavourite(recipe: Favourite) : Observable<Favourite[]> {
-    return this.http.post<Favourite[]>(`${environment.apiUrl}/${this.url}/CreateFavourite`, 
-    recipe);
+  public GetFavourites(accountsId: number) {
+    return this.http.get<any>(`${environment.apiUrl}/${this.url}/favourite/${accountsId}`);
   }
+
+  public GetFavouritesCount(testRecipesId: number) {
+    return this.http.get<any>(`${environment.apiUrl}/${this.url}/favouritecount/${testRecipesId}`,);
+  }
+
+
+
 
     //account
   
@@ -122,7 +129,7 @@ export class TestRecipeService {
     decodedToken() {
       const jwtHelper = new JwtHelperService();
       const token = this.getToken()!;
-      console.log(jwtHelper.decodeToken(token));
+      console.log(jwtHelper.decodeToken(token)) + " this is decoded token";
       return jwtHelper.decodeToken(token);
     }
 
@@ -133,7 +140,14 @@ export class TestRecipeService {
 
     getRoleFromToken(){
       if(this.userPayload)
+      console.log(this.userPayload.role + " this is get rolefromtoken")
       return this.userPayload.role;
+    }
+
+    getSidFromToken(){
+      if(this.userPayload)
+      console.log(this.userPayload.id + " this is get rolefromtoken")
+      return this.userPayload.id;
     }
 
 

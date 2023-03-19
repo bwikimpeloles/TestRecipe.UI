@@ -16,6 +16,7 @@ export class RecipeCardUserComponent {
   recipeToEdit?: TestRecipe;
   favourites: Favourite[] = [];
   favouriteToEdit?: Favourite;
+  answer:number=0;
 
   @Input() recipe!: TestRecipe;
   @Input() favourite!: Favourite;
@@ -29,8 +30,6 @@ export class RecipeCardUserComponent {
     this.testRecipeService.getTestRecipes()
     .subscribe((result: TestRecipe[])  => (this.recipes = result));
 
-    this.testRecipeService.GetFavourite()
-    .subscribe((result: Favourite[])  => (this.favourites = result));
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
@@ -39,6 +38,12 @@ export class RecipeCardUserComponent {
 
   addtoFavourite(recipes: TestRecipe[]) {
     this.recipes = recipes;
+  }
+
+  GetFavouritesCount(testRecipesId: any) {
+    this.testRecipeService.GetFavouritesCount(testRecipesId)
+    .subscribe((a)  => (this.answer = a));
+    return this.answer;
   }
 
 }

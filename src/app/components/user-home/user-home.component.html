@@ -8,6 +8,8 @@
         </div>
         
         <button (click)='SignOut()'>log out </button>
+        <button (click)="testRecipeService.usermenu=true; testRecipeService.favouritemenu=false;" >Home</button>
+        <button  (click)="testRecipeService.usermenu=false; testRecipeService.favouritemenu=true;" >Favourite</button>
         <!-- <button (click)='okk()'>OKK </button> -->
       </div>
       <br>
@@ -20,15 +22,28 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-        <div class="recipes-display">
-          <app-recipe-card-user class="recipe-card" *ngFor="let recipe of recipes | filter:searchText"
-            [recipe]="recipe">
-            <!-- <app-favouritebutton *ngFor="let favourite of favourites; let i=index"
-            [favourite]="favourite"></app-favouritebutton> -->
-          </app-recipe-card-user>
+        <div *ngIf="testRecipeService.usermenu">
+          <div class="recipes-display">
           
-  
+            <app-recipe-card-user class="recipe-card" *ngFor="let recipe of recipes | filter:searchText"
+              [recipe]="recipe">
+              <!-- <app-favouritebutton *ngFor="let favourite of favourites; let i=index"
+              [favourite]="favourite"></app-favouritebutton> -->
+            </app-recipe-card-user>
+            
+    
+          </div>
         </div>
+
+        <div *ngIf="testRecipeService.favouritemenu">
+          <div class="recipes-display">
+          
+            <app-favourite-card></app-favourite-card>
+            
+    
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@
             <p><b>Instruction</b><br>{{ recipe.instruction }}</p>
         </div>
         <div class="recipe-card-body">
-            <p><b>Number of Favourites: </b>{{ recipe.favourite }}</p>
+            <p><b>Number of Favourites: </b>{{ GetFavouritesCount(recipe.id)}}</p>
         </div>
     </div>
     <div class="recipe-card-footer">

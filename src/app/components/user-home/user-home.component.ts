@@ -24,8 +24,7 @@ export class UserHomeComponent {
   ngOnInit():void {
     this.testRecipeService.getTestRecipes()
     .subscribe((result: TestRecipe[])  => (this.recipes = result));
-    this.testRecipeService.GetFavourite()
-    .subscribe((result: Favourite[])  => (this.favourites = result));
+
   
 
     this.testRecipeService.getUsernameFromStore().subscribe(val =>{

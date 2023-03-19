@@ -11,6 +11,7 @@ export class RecipeCardComponent {
   title = 'TestRecipe.UI';
   recipes: TestRecipe[] = [];
   recipeToEdit?: TestRecipe;
+  answer:number=0;
 
   @Input() recipe: any;
   @Output() recipesUpdated = new EventEmitter<TestRecipe[]>();
@@ -40,5 +41,11 @@ export class RecipeCardComponent {
 
   cancelEditRecipe(recipe: TestRecipe) {
     this.recipeToEdit = undefined;
+  }
+
+  GetFavouritesCount(testRecipesId: number) {
+    this.testRecipeService.GetFavouritesCount(testRecipesId)
+    .subscribe((a)  => (this.answer = a));
+    return this.answer;
   }
 }

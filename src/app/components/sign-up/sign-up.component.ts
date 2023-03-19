@@ -18,23 +18,10 @@ export class SignUpComponent implements OnInit {
   signUpForm!: FormGroup;
   public accounts: any=[];
   public role: string="";
+  
 
   constructor(private formBuilder: FormBuilder, public testRecipeService: TestRecipeService, private router: Router) {
   }
-  
-
-  // constructor(private formBuilder: FormBuilder, public testRecipeService: TestRecipeService,private router: Router) {
-  //   this.authForm = this.formBuilder.group({
-  //     fullname: ['', [Validators.required]],
-  //     email: ['', [Validators.required]],
-  //     password: ['', [Validators.required]],
-  //   });
-  //   this.authForm2 = this.formBuilder.group({
-  //     email: ['', [Validators.required]],
-  //     password: ['', [Validators.required]],
-  //     rememberMe: false
-  //   });
-  // }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -65,19 +52,18 @@ export class SignUpComponent implements OnInit {
       console.log(this.loginForm.value);
       this.testRecipeService.Login(this.loginForm.value).subscribe({
         next:(res) => {
-          
+          this.loginForm.reset();
           this.testRecipeService.storeToken(res.token);//token must be store first inside local storage
-          console.log('this is token'+res.token)
-          
-          
-          this.testRecipeService.getRoleFromStore().subscribe(val =>{
+          const userPayload = this.testRecipeService.decodedToken();
 
-            let roleFromToken = this.testRecipeService.getRoleFromToken();
-            debugger
-            this.role = val || roleFromToken
-            console.log('this is log');
-            alert(res.message);
+          debugger
+          console.log("hi, this is your sid " +userPayload.actort);
+          debugger
+          let roleFromToken = userPayload.role;
+          debugger
             //debugger
+            this.role = roleFromToken
+            alert(res.message);
             //this.testRecipeService.storeToken(res.token); 
             //this was previous position, of this line, thats why roleFromToken was undefined before 
             if (this.role=="Admin"){
@@ -85,7 +71,7 @@ export class SignUpComponent implements OnInit {
             } else {
               this.router.navigate(['userhome'])
             } 
-          });
+          
         },
         error:(err)=>{
           alert(err?.error.message);
@@ -125,55 +111,6 @@ export class SignUpComponent implements OnInit {
 
 
 
-  // signUp(user: User){
-  //   if (!this.authForm.valid) return;
 
-  //   //Enable loader
-  //   this.loading = true;
-  //   //Set user role id to 1 for admin role
-  //   user.roleId = 1;
-  //   return this.testRecipeService.signUp(user).subscribe(
-  //     user => {
-  //       //Add user data to local storage
-  //       localStorage.setItem('user', JSON.stringify(user));
-  //       // Redirect user to protected route
-  //       this.router.navigateByUrl('/home');
-  //     },error => {
-  //       // If error
-  //       console.log(error);
-  //       //Show error message to user
-  //       //If user already exist, 409 => Conflit
-  //       if (error.status === 409){
-  //         this.errorMessage = "This email is already registered!";
-  //       }else{
-  //         this.errorMessage = "Something went wrong. Please try again!";
-  //       }
-  //       //Disable loader
-  //       this.loading = false;
-  //     }
-  //   );
-  // }
-
-  // signIn(user: User){
-  //   if (!this.authForm2.valid) return;
-  //   //Enable loader
-  //   this.loading = true;
-  //   return this.testRecipeService.signIn(user).subscribe(
-  //     user => {
-  //       this.loading = false;
-  //        //Add user data to local storage
-  //        localStorage.setItem('user', JSON.stringify(user));
-  //        // Redirect user to protected route
-  //        this.router.navigateByUrl('/home');
-  //     },error => {
-  //       // If error
-  //       console.log(error);
-  //       //Show error message to user
-  //       this.errorMessage = "Login failed. Please try again!";
-  //       //Disable loader
-  //       this.loading = false;
-  //     }
-  //   );
-  // }
 
 }

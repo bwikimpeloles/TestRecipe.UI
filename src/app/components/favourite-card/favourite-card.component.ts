@@ -4,19 +4,21 @@ import { TestRecipe } from 'src/app/models/test-recipe';
 import { TestRecipeService } from 'src/app/services/test-recipe.service';
 
 @Component({
-  selector: 'app-favouritebutton',
-  templateUrl: './favouritebutton.component.html',
-  styleUrls: ['./favouritebutton.component.css']
+  selector: 'app-favourite-card',
+  templateUrl: './favourite-card.component.html',
+  styleUrls: ['./favourite-card.component.css']
 })
-export class FavouritebuttonComponent {
-
+export class FavouriteCardComponent {
+  title = 'TestRecipe.UI';
   recipes: TestRecipe[] = [];
   recipeToEdit?: TestRecipe;
   favourites: Favourite[] = [];
   favouriteToEdit?: Favourite;
+  answer:number=0;
 
   @Input() recipe!: TestRecipe;
   @Input() favourite!: Favourite;
+  @Input() account!: any;
   @Output() recipesUpdated = new EventEmitter<TestRecipe[]>();
   @Output() favouritesUpdated = new EventEmitter<Favourite[]>();
 
@@ -26,15 +28,20 @@ export class FavouritebuttonComponent {
     this.testRecipeService.getTestRecipes()
     .subscribe((result: TestRecipe[])  => (this.recipes = result));
 
-
   }  
 
   updateRecipeList(recipes: TestRecipe[]) {
     this.recipes = recipes;
   }
 
-  count(id: number) {
-    return true;
+  addtoFavourite(recipes: TestRecipe[]) {
+    this.recipes = recipes;
   }
-  
+
+  GetFavouritesCount(testRecipesId: any) {
+    this.testRecipeService.GetFavouritesCount(testRecipesId)
+    .subscribe((a)  => (this.answer = a));
+    return this.answer;
+  }
+
 }
